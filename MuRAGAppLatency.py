@@ -120,7 +120,7 @@ if uploaded_file is not None:
     pdf_elements = pdf_ele(image_path,temp_file)
 
     # Categorize elements by type
-    @st.cache_data()
+    #@st.cache_data()
     def categorize_elements(_raw_pdf_elements):
       """
       Categorize extracted elements from a PDF into tables and texts.
@@ -152,7 +152,7 @@ if uploaded_file is not None:
     st.write(f"{bullet_point} Extraction process completed")
 
     # Generate summaries of text elements
-    @st.cache_data()
+    #@st.cache_data()
     def generate_text_summaries(texts, tables, summarize_texts=False):
       """
       Summarize text elements
@@ -222,7 +222,7 @@ if uploaded_file is not None:
     
     
 
-    @st.cache_data()
+    #@st.cache_data()
     def encode_image(image_path):
       """Getting the base64 string"""
       with open(image_path, "rb") as image_file:
@@ -251,7 +251,7 @@ if uploaded_file is not None:
           ]
       )
       return msg.content
-    @st.cache_data()
+    #@st.cache_data()
     def generate_img_summaries(path):
         """
         Generate summaries and base64 encoded strings for images
@@ -294,7 +294,7 @@ if uploaded_file is not None:
     st.write(f"{bullet_point} Summary generation process completed")  
         
     
-    @st.cache_resource()
+    #@st.cache_resource()
     def create_multi_vector_retriever(
       _vectorstore, text_summaries, texts, table_summaries, tables, image_summaries, images
     ):
