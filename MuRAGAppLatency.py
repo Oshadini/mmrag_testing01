@@ -469,7 +469,8 @@ if uploaded_file is not None:
         )
 
         return chain
-    
+    st.write(RunnableLambda(img_prompt_func))
+
 
     chain_multimodal_rag = multi_modal_rag_chain(retriever_multi_vector_img)
         
