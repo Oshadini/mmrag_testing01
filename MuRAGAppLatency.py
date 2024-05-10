@@ -334,11 +334,24 @@ if uploaded_file is not None:
           add_documents(retriever, image_summaries, images)
       return retriever
 
-    vectorstore = Chroma(collection_name="mm_rag_mistral01",embedding_function=OpenAIEmbeddings(openai_api_key = openai.api_key))
-
+    if 'vectorstore' not in st.session_state:
+        vectorstore = Chroma(collection_name="mm_rag_mistral01",embedding_function=OpenAIEmbeddings(openai_api_key = openai.api_key))
+        st.session_state["vectorstore"] = vectorstore
+    else:
+        vectorstore = st.session_state["vectorstore"]
     
 
-    retriever_multi_vector_img=create_multi_vector_retriever(vectorstore,text_summaries,texts,table_summaries,tables,image_summaries,img_base64_list)
+    
+        # Create retreiver
+    if 'retriever_multi_vector_img' not in st.session_state:
+        with st.spinner("Creating Multi vector retreiver"):
+            retriever_multi_vector_img=create_multi_vector_retriever(vectorstore,text_summaries,texts,table_summaries,tables,image_summaries,img_base64_list)
+        st.session_state["retriever_multi_vector_img"] = retriever_multi_vector_img
+    else:
+        retriever_multi_vector_img = st.session_state["retriever_multi_vector_img"]
+    st.write(f"{bullet_point} Multi vector retreiver is created") 
+
+
 
     
     def looks_like_base64(sb):
