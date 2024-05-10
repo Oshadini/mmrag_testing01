@@ -89,7 +89,7 @@ Multi-Modal RAG App with Multi Vector Retriever
 bullet_point = "◇"
 
 
-
+question = st.text_input('Enter a question') 
 if uploaded_file is not None:
     st.title("Extraction process:-")
     st.write(f"{bullet_point} Extraction process started")
@@ -482,7 +482,7 @@ if uploaded_file is not None:
 
      
 
-    question = st.text_input('Enter a question') 
+    
     if(question):
         chain_multimodal_rag = st.session_state["chain_multimodal_rag"]
         response= chain_multimodal_rag.invoke(question)
