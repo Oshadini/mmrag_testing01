@@ -215,7 +215,8 @@ if uploaded_file is not None:
         text_summaries = st.session_state["text_summaries"]
         table_summaries = st.session_state["table_summaries"]
     st.write(f"{bullet_point} \t\tText & Table summaries generation completed")  
-                                                                                            
+
+    st.write(table_summaries)
     
     
 
