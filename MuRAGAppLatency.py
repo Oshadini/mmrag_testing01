@@ -294,9 +294,9 @@ if uploaded_file is not None:
     st.write(f"{bullet_point} Summary generation process completed")  
         
     
-    #@st.cache_resource()
+    @st.cache_resource()
     def create_multi_vector_retriever(
-      vectorstore, text_summaries, texts, table_summaries, tables, image_summaries, images
+      _vectorstore, text_summaries, texts, table_summaries, tables, image_summaries, images
     ):
       """
       Create retriever that indexes summaries, but returns raw images or texts
@@ -333,22 +333,13 @@ if uploaded_file is not None:
       if image_summaries:
           add_documents(retriever, image_summaries, images)
       return retriever
+
+    vectorstore = Chroma(collection_name="mm_rag_mistral01",embedding_function=OpenAIEmbeddings(openai_api_key = openai.api_key))
+
     
-    if 'vectorstore' not in st.session_state:
-        vectorstore = Chroma(collection_name="mm_rag_mistral01",embedding_function=OpenAIEmbeddings(openai_api_key = openai.api_key))
-        st.session_state["vectorstore"] = vectorstore
-    else:
-        vectorstore = st.session_state["vectorstore"]
-    
-    # Create retreiver
-    if 'retriever_multi_vector_img' not in st.session_state:
-        with st.spinner("Creating Multi vector retreiver"):
-            retriever_multi_vector_img=create_multi_vector_retriever(vectorstore,text_summaries,texts,table_summaries,tables,image_summaries,img_base64_list)
-        st.session_state["retriever_multi_vector_img"] = retriever_multi_vector_img
-    else:
-        retriever_multi_vector_img = st.session_state["retriever_multi_vector_img"]
-    st.write(f"{bullet_point} Multi vector retreiver is created")  
-    
+
+    retriever_multi_vector_img=create_multi_vector_retriever(vectorstore,text_summaries,texts,table_summaries,tables,image_summaries,img_base64_list)
+
     
     def looks_like_base64(sb):
       """Check if the string looks like base64"""
