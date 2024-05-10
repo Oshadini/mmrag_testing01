@@ -210,13 +210,15 @@ if uploaded_file is not None:
             text_summaries, table_summaries = generate_text_summaries(texts, tables, summarize_texts=True)
             st.session_state["text_summaries"] = text_summaries
             st.session_state["table_summaries"] = table_summaries
+            st.write(table_summaries)
     else:
         # Use already populated session state variables
         text_summaries = st.session_state["text_summaries"]
         table_summaries = st.session_state["table_summaries"]
+        st.write(table_summaries)
     st.write(f"{bullet_point} \t\tText & Table summaries generation completed")  
 
-    st.write(table_summaries)
+    
     
     
 
